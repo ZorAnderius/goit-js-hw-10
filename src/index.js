@@ -22,27 +22,30 @@ function onInputText(e) {
   }
 
   API.fetchCountries(nameOfCountry)
-    .then(countries => {
-      resetAllHTML();
-      if (countries.length > 3 && countries.length <= 10) {
-        renderCountriesMarkup(countries);
-      } else if (countries.length === 1) {
-        renderCountryMarkup(countries);
-      } else if (countries.length > 10) {
-        Notify.info(
-          'Too many matches found. Please enter a more specific name.',
-          notifyInit
-        );
+    .then(checkCountriesList)
+    .catch(errorNotifycation);
+}
 
-        return;
-      }
-    })
-    .catch(error =>
-      Notify.failure(
-        'Opps...there is no a country with that name. Please try again.',
-        notifyInit
-      )
+function checkCountriesList(countries) {
+  resetAllHTML();
+  if (countries.length > 3 && countries.length <= 10) {
+    renderCountriesMarkup(countries);
+  } else if (countries.length === 1) {
+    renderCountryMarkup(countries);
+  } else if (countries.length > 10) {
+    Notify.info(
+      'Too many matches found. Please enter a more specific name.',
+      notifyInit
     );
+  }
+}
+
+function errorNotifycation() {
+  resetAllHTML();
+  Notify.failure(
+    'Opps...there is no a country with that name. Please try again.',
+    notifyInit
+  );
 }
 
 function renderCountryMarkup(country) {
