@@ -28,7 +28,7 @@ function onInputText(e) {
 
 function checkCountriesList(countries) {
   resetAllHTML();
-  if (countries.length > 3 && countries.length <= 10) {
+  if (countries.length > 2 && countries.length <= 10) {
     renderCountriesMarkup(countries);
   } else if (countries.length === 1) {
     renderCountryMarkup(countries);
